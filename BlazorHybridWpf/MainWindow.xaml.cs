@@ -1,18 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Components.WebView.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using RazorClassLibrary1;
 
 namespace BlazorHybridWpf
 {
@@ -23,11 +12,17 @@ namespace BlazorHybridWpf
     {
         public MainWindow()
         {
+            InitializeComponent();
+
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddBlazorWebView();
-            Resources.Add("services", serviceCollection.BuildServiceProvider());
 
-            InitializeComponent();
+            theWebView.Services = serviceCollection.BuildServiceProvider();
+            theWebView.RootComponents.Add(new RootComponent()
+            {
+                Selector = "#app",
+                ComponentType = typeof(Main)
+            });
         }
     }
 }
