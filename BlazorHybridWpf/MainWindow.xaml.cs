@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Components.WebView.Wpf;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using RazorClassLibrary1;
+using RazorClassLibrary1.Services;
+using BlazorHybridWpf.Services;
 
 namespace BlazorHybridWpf
 {
@@ -14,8 +14,9 @@ namespace BlazorHybridWpf
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddBlazorWebView();
-            Resources.Add("services", serviceCollection.BuildServiceProvider());
+            serviceCollection.AddTransient<IGeoLocationService, GeoLocationService>();
 
+            Resources.Add("services", serviceCollection.BuildServiceProvider());
             InitializeComponent();
         }
     }
