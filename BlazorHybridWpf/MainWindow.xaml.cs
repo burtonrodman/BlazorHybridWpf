@@ -12,17 +12,11 @@ namespace BlazorHybridWpf
     {
         public MainWindow()
         {
-            InitializeComponent();
-
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddBlazorWebView();
+            Resources.Add("services", serviceCollection.BuildServiceProvider());
 
-            theWebView.Services = serviceCollection.BuildServiceProvider();
-            theWebView.RootComponents.Add(new RootComponent()
-            {
-                Selector = "#app",
-                ComponentType = typeof(Main)
-            });
+            InitializeComponent();
         }
     }
 }
